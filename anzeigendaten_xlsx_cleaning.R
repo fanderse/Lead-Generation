@@ -1,5 +1,5 @@
 # author: florian andersen
-# last updated: 2021-Sep-28
+# last updated: 2021-Sep-29
 # purpose: clean xlsx export from anzeigendaten.de. 
 # The script separates those vacancies with AP and personal mail from those without. 
 # It excludes all vacancies with irrelevant positions, i.e. junior or trainee positions.
@@ -23,6 +23,9 @@ setwd("C:/Users/FlorianAndersen/Callisto Management GmbH/01 01 Callisto Internal
 # the script asks you which file you would like to load
 source_name <- dlgInput("Name der xlsx von anzeigendaten (mit .xlsx am Ende bitte):", 
                         Sys.info()["user"])$res
+
+# benchmarking
+start_time <- Sys.time()
 
 dataset <- read.xlsx2(source_name,
                       sheetIndex = 1, 
@@ -59,7 +62,6 @@ dataset <- dataset[!dataset$Position %ilike% "Junior", ]
 dataset <- dataset[!dataset$Position %ilike% "Intern", ]
 dataset <- dataset[!dataset$Position %ilike% "Trainee", ]
 dataset <- dataset[!dataset$Position %ilike% "Prakti", ]
-
 
 ################################################################################
 # move entries w/o AP or mail address to new dataframe and delete from original
@@ -113,16 +115,18 @@ for (i in 1:nrow(dataset)) {
       dataset_ohneAP <- dataset_ohneAP[-i,]
     }
     
-    
-    
   }
 }
+
+# benchmarking
+end_time <- Sys.time()
+end_time - start_time
 
 ################################################################################
 # write all three dataframes into xlsx sheets
 # the file names need to be changed as desired
 
-destination_name <- dlgInput("Name der Zieldatei wählen (mit .xlsx am Ende bitte):", 
+destination_name <- dlgInput("Name der Zieldatei wÃ¤hlen (mit .xlsx am Ende bitte):", 
                              Sys.info()["user"])$res
 
 # main data (vacancies with AP and personal mail)
@@ -139,7 +143,7 @@ write.xlsx(dataset_targetlist, destination_name, sheetName = "in Target List", a
 # create another .xlsx with one sheet for each consultant 
 # (can be sent to consultants immediately imho)
 
-targetlist_name <- dlgInput("Name der Zieldatei wählen (mit .xlsx am Ende bitte):", 
+targetlist_name <- dlgInput("Name der Zieldatei wÃ¤hlen (mit .xlsx am Ende bitte):", 
                             Sys.info()["user"])$res
 
 consultants <- unique(dataset_targetlist$Owner)
@@ -149,5 +153,7 @@ write.xlsx(subset(dataset_targetlist, dataset_targetlist$Owner == c),
 }
 
 ################################################################################
+
+
 
 
