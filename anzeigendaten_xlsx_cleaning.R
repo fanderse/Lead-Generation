@@ -15,7 +15,7 @@ library(data.table)
 library(svDialogs)
 
 # set working directory (i.e. where the xlsx is stored)
-setwd("C:/Users/FlorianAndersen/Callisto Management GmbH/01 01 Callisto Internal - General/06 Mitarbeiter Ordner/Florian Andersen/Lead Generation")
+setwd("")
 
 ################################################################################
 # load xlsx
