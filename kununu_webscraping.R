@@ -17,7 +17,7 @@ library(readxl)
 ################################################################################
 # load list of company names
 
-setwd("C:/Users/FlorianAndersen/Callisto Management GmbH/01 01 Callisto Internal - General/06 Mitarbeiter Ordner/Florian Andersen/Lead Generation/Estario")
+setwd("")
 
 
 dataset <- read_excel("muenchen_company_names.xlsx", 
@@ -97,8 +97,8 @@ dataset_worstcompanies <- dataset[dataset$kununu <= mean,]
 ################################################################################
 # save data
 
-write_xlsx(dataset, "E:/Arbeit/Callisto/kununu_scores.xlsx")
-write_xlsx(dataset_worstcompanies, "E:/Arbeit/Callisto/kununu_scores2.xlsx")
+write_xlsx(dataset, "")
+write_xlsx(dataset_worstcompanies, "")
 
 
 #write.xlsx(dataset, "kununu_scores.xlsx", sheetName = "Main", append = FALSE)
